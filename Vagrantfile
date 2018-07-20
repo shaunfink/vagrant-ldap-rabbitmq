@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "precise64"
+  config.vm.box = "ubuntu/xenial64"
   config.vm.hostname = "rabbitmq.dev"
 
   config.vm.network :forwarded_port, guest: 80, host: 8080
@@ -11,10 +11,12 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 5672, host: 5672
   config.vm.network :forwarded_port, guest: 15672, host: 15672
 
-  config.vm.network :private_network, ip: "192.168.1.160"
+  config.vm.network :private_network, ip: "10.0.0.150"
 
   config.vm.synced_folder "./ldap/", "/vagrant_data/deploy/"
   config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
+
+  config.puppet_install.puppet_version = :latest
 
   config.vm.provider :virtualbox do |vb|
     vb.name = "rabbitmq.dev"
@@ -23,7 +25,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision :puppet do |puppet|
-    puppet.module_path = "modules"
-    puppet.manifests_path = "manifests"
+    puppet.module_path = "./puppet/modules"
+    puppet.manifests_path = "./puppet/manifests"
   end
 end
