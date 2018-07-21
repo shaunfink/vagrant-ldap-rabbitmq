@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.puppet_install.puppet_version = :latest
+  #config.librarian_puppet.puppetfile_dir = "./puppet/"
 
   config.vm.provision "shell", path: "./scripts/install_puppet_modules.sh"
   config.vm.provision :puppet do |puppet|
