@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 389, host: 3890
   config.vm.network :forwarded_port, guest: 5671, host: 5671
   config.vm.network :forwarded_port, guest: 5672, host: 5672
+  config.vm.network :forwarded_port, guest: 15671, host: 15671
   config.vm.network :forwarded_port, guest: 15672, host: 15672
 
   config.vm.synced_folder "./ldap/", "/vagrant_data/ldap/"
@@ -28,7 +29,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: "./scripts/install_puppet_modules.sh"
   config.vm.provision :puppet do |puppet|
-    puppet.options = "--verbose --debug"
+    #puppet.options = "--verbose --debug"
     #puppet.module_path = "./puppet/modules"
     puppet.manifests_path = "./puppet/manifests"
     puppet.manifest_file = "default.pp"
