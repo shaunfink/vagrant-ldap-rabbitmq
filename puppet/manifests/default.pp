@@ -1,3 +1,22 @@
+# LDAP Configurations
+class { 'openldap::server': }
+openldap::server::database { 'dc=rabbitmq,dc=dev':
+  directory => '/var/lib/ldap',
+  rootdn    => 'cn=admin,dc=rabbitmq,dc=dev',
+  rootpw    => 'secret',
+}
+
+openldap::server::access { '0 on dc=rabbitmq,dc=dev':
+  what     => 'attrs=userPassword,shadowLastChange',
+  access   => [
+    'by dn="cn=admin,dc=rabbitmq,dc=dev" write',
+    'by anonymous auth',
+    'by self write',
+    'by * none',
+  ],
+}
+
+# RabbitMQ Configurations
 class { 'rabbitmq':
   admin_enable             => true,
   management_ssl           => false,
