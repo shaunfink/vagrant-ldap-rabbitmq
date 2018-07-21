@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "./ldap/", "/vagrant_data/deploy/"
   config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
-
+  
   config.puppet_install.puppet_version = :latest
 
   config.vm.provider :virtualbox do |vb|
@@ -23,6 +23,8 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
 	  vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
+
+  config.vm.provision "shell", path: "./scripts/install_puppet_modules.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.module_path = "./puppet/modules"
