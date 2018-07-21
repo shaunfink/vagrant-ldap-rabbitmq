@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: "./scripts/install_puppet_modules.sh"
   config.vm.provision :puppet do |puppet|
-    #puppet.options = "--verbose --debug"
+    puppet.options = "--verbose --debug"
     #puppet.module_path = "./puppet/modules"
     puppet.manifests_path = "./puppet/manifests"
     puppet.manifest_file = "default.pp"
