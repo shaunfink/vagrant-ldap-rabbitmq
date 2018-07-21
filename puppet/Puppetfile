@@ -1,0 +1,8 @@
+forge "https://forgeapi.puppetlabs.com"
+
+# Modules from the Puppet Forge
+mod "puppetlabs/stdlib"
+mod "puppetlabs/apt"
+mod "puppet/rabbitmq"
+mod "puppet/archive"
+mod "camptocamp/openldap"
