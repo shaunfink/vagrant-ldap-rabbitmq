@@ -3,7 +3,9 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
+
   config.vm.hostname = "rabbitmq.dev"
+  config.vm.network :private_network, ip: "10.0.0.150"
 
   config.vm.network :forwarded_port, guest: 80, host: 8080
   config.vm.network :forwarded_port, guest: 389, host: 3890
@@ -11,13 +13,9 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 5672, host: 5672
   config.vm.network :forwarded_port, guest: 15672, host: 15672
 
-  config.vm.network :private_network, ip: "10.0.0.150"
-
   config.vm.synced_folder "./ldap/", "/vagrant_data/ldap/"
   config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
   config.vm.synced_folder "./certs/", "/vagrant_data/certs/"
-
-  config.puppet_install.puppet_version = :latest
 
   config.vm.provider :virtualbox do |vb|
     vb.name = "rabbitmq.dev"
@@ -25,10 +23,13 @@ Vagrant.configure("2") do |config|
 	  vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  config.vm.provision "shell", path: "./scripts/install_puppet_modules.sh"
+  config.puppet_install.puppet_version = :latest
 
+  config.vm.provision "shell", path: "./scripts/install_puppet_modules.sh"
   config.vm.provision :puppet do |puppet|
-    puppet.module_path = "./puppet/modules"
+    #puppet.options = "--verbose --debug"
+    #puppet.module_path = "./puppet/modules"
     puppet.manifests_path = "./puppet/manifests"
+    puppet.manifest_file = "default.pp"
   end
 end
