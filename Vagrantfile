@@ -13,9 +13,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: "10.0.0.150"
 
-  config.vm.synced_folder "./ldap/", "/vagrant_data/deploy/"
+  config.vm.synced_folder "./ldap/", "/vagrant_data/ldap/"
   config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
-  
+  config.vm.synced_folder "./certs/", "/vagrant_data/certs/"
+
   config.puppet_install.puppet_version = :latest
 
   config.vm.provider :virtualbox do |vb|
