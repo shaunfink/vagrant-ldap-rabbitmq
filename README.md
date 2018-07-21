@@ -24,7 +24,5 @@ A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing.
 - https://forge.puppet.com/puppetlabs/apt
 
 # Some Helpful References:
-- https://github.com/toretto460/vagrant-rabbitmq
 - https://github.com/sepulworld/vagrant-ldap
-- https://github.com/gusnips/vagrant-rabbitmq
 - https://github.com/rgl/ldap-vagrant
