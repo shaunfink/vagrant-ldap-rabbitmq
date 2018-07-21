@@ -1,12 +1,15 @@
-[submodule "puppet/modules/apt"]
-	path = puppet/modules/apt
-	url = https://github.com/puppetlabs/puppetlabs-apt.git
-[submodule "puppet/modules/rabbitmq"]
-	path = puppet/modules/rabbitmq
-	url = https://github.com/voxpupuli/puppet-rabbitmq.git
-[submodule "puppet/modules/stdlib"]
-	path = puppet/modules/stdlib
-	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
-[submodule "puppet/modules/openldap"]
-	path = puppet/modules/openldap
+[submodule "puppet/modules/puppet-openldap"]
+	path = puppet/modules/puppet-openldap
 	url = https://github.com/camptocamp/puppet-openldap.git
+[submodule "puppet/modules/puppetlabs-stdlib"]
+	path = puppet/modules/puppetlabs-stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/modules/puppet-rabbitmq"]
+	path = puppet/modules/puppet-rabbitmq
+	url = https://github.com/voxpupuli/puppet-rabbitmq.git
+[submodule "puppet/modules/puppetlabs-apt"]
+	path = puppet/modules/puppetlabs-apt
+	url = https://github.com/puppetlabs/puppetlabs-apt.git
+[submodule "puppet/modules/puppet-archive"]
+	path = puppet/modules/puppet-archive
+	url = https://github.com/voxpupuli/puppet-archive.git
