@@ -1,9 +1,8 @@
 # Description
-A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing.
+A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing and dev work.
 
 # To Do:
 - I need to figure out hot to get the puppet librarian plugin working beforee this becomes applicable. For the time being, i'm just using provisioning scripts
-- Get LDAP installed and configured
 - Configure LDAP with RabbitMQ
 
 # Setup (eventually, once I can get the Puppet Librarian working)
@@ -22,7 +21,3 @@ A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing.
 - https://forge.puppet.com/puppet/archive
 - https://forge.puppet.com/puppetlabs/stdlib
 - https://forge.puppet.com/puppetlabs/apt
-
-# Some Helpful References:
-- https://github.com/sepulworld/vagrant-ldap
-- https://github.com/rgl/ldap-vagrant
