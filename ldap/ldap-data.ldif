@@ -8,19 +8,49 @@ ou: group
 objectClass: top
 objectClass: organizationalunit
 
+dn: ou=services,dc=rabbitmq,dc=dev
+ou: group
+objectClass: top
+objectClass: organizationalunit
 
 dn: cn=developers,ou=groups,dc=rabbitmq,dc=dev
 cn: developers
 description: Development Group
 objectClass: top
 objectClass: groupOfUniqueNames
-uniqueMember: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
+uniqueMember: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
+uniqueMember: cn=rabbitdevadmin,ou=people,dc=rabbitmq,dc=dev
 
-dn: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
-cn: rabbitdev
-sn: rabbitdev
-description: Development User
-userPassword: rabbitdev
+dn: cn=services,ou=groups,dc=rabbitmq,dc=dev
+cn: services
+description: Services Group
+objectClass: top
+objectClass: groupOfUniqueNames
+uniqueMember: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
+dn: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
+cn: rabbitadmin
+sn: rabbitadmin
+description: RabbitMQ Admin User
+userPassword: rabbitadminldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+
+dn: cn=rabbitdevadmin,ou=people,dc=rabbitmq,dc=dev
+cn: rabbitdevadmin
+sn: rabbitdevadmin
+description: RabbitMQ Development Admin User
+userPassword: rabbitdevadminldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+
+dn: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+cn: rabbitdevcode
+sn: rabbitdevcode
+description: RabbitMQ Code Service User
+userPassword: rabbitdevcodeldap
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
