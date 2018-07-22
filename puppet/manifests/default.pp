@@ -1,22 +1,19 @@
-# LDAP Configurations
+# Provision OpenLDAP
 class { 'openldap::server': }
 openldap::server::database { 'dc=rabbitmq,dc=dev':
   directory => '/var/lib/ldap',
   rootdn    => 'cn=admin,dc=rabbitmq,dc=dev',
   rootpw    => 'secret',
+} ->
+
+# Import users into LDAP
+exec { 'ldapadd':
+  path     => '/usr/bin',
+  cwd      => '/vagrant_data/ldap',
+  command  => 'ldapadd -x -D "cn=admin,dc=rabbitmq,dc=dev" -w "secret" -h "localhost" -f "ldap-data.ldif"',
 }
 
-openldap::server::access { '0 on dc=rabbitmq,dc=dev':
-  what     => 'attrs=userPassword,shadowLastChange',
-  access   => [
-    'by dn="cn=admin,dc=rabbitmq,dc=dev" write',
-    'by anonymous auth',
-    'by self write',
-    'by * none',
-  ],
-}
-
-# RabbitMQ Configurations
+# Provsion RabbitMQ
 class { 'rabbitmq':
   admin_enable             => true,
   management_ssl           => false,
@@ -32,6 +29,7 @@ class { 'rabbitmq':
   auth_backends            => ['rabbit_auth_backend_internal', 'rabbit_auth_backend_ldap'],
 }
 
+# Enable RabbitMQ Plugins
 rabbitmq_plugin { 'rabbitmq_auth_backend_ldap':
   ensure => present,
 }
@@ -40,23 +38,25 @@ rabbitmq_plugin { 'rabbitmq_auth_mechanism_ssl':
   ensure => present,
 }
 
+# Add a RabbitMQ Virtual Host
 rabbitmq_vhost { 'devvhost':
   ensure => present,
 }
 
+# Add some RabbitMQ Users
 rabbitmq_user { 'rabbitadmin':
-  ensure   => 'present',
-  admin    => true,
-  password => 'rabbitadmin',
+ ensure   => 'present',
+ admin    => true,
+ password => 'rabbitadmin',
 }
 
-rabbitmq_user { 'rabbitdev':
-  ensure   => 'present',
-  admin    => false,
-  password => 'rabbitdev',
+rabbitmq_user { 'rabbitlocaldev':
+ ensure   => 'present',
+ admin    => false,
+ password => 'rabbitlocaldev',
 }
 
-rabbitmq_user_permissions { 'rabbitdev@devvhost':
+rabbitmq_user_permissions { 'rabbitlocaldev@devvhost':
   configure_permission => '.*',
   read_permission      => '.*',
   write_permission     => '.*',
