@@ -1,34 +1,26 @@
-dn: dc=rabbitmq,dc=dev
-dc: rabbitmq
-objectClass: top
-objectClass: domain
-
 dn: ou=people,dc=rabbitmq,dc=dev
 ou: people
 objectClass: top
-objectClass: organizationalUnit
+objectClass: organizationalunit
 
-dn: ou=group,dc=rabbitmq,dc=dev
+dn: ou=groups,dc=rabbitmq,dc=dev
 ou: group
 objectClass: top
-objectClass: organizationalUnit
+objectClass: organizationalunit
 
-dn: cn=users,ou=group,dc=rabbitmq,dc=dev
-objectClass: posixGroup
-objectClass: top
-cn: users
-userPassword: 1111
-gidNumber: 1000
-memberUid: rabbitdev
 
-dn: uid=rabbitdev,ou=people,dc=rabbitmq,dc=dev
-uid: rabbitdev
-cn: dabbitdev
-objectClass: account
-objectClass: posixAccount
+dn: cn=developers,ou=groups,dc=rabbitmq,dc=dev
+cn: developers
+description: Development Group
 objectClass: top
-objectClass: shadowAccount
+objectClass: groupOfUniqueNames
+uniqueMember: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
+
+dn: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
+cn: rabbitdev
+sn: rabbitdev
+description: Development User
 userPassword: rabbitdev
-uidNumber: 1000
-gidNumber: 1000
-homeDirectory: /home/rabbitdev
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
