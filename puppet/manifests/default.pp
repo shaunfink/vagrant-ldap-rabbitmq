@@ -38,9 +38,9 @@ class { 'rabbitmq':
   ldap_auth                   => true,
   ldap_server                 => 'rabbitmq.dev',
   ldap_port                   => 389,
-  ldap_user_dn_pattern        => 'cn=${username},ou=services,dc=rabbitmq,dc=dev',
-  ldap_other_bind             => "{'cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev', 'rabbitbind'}",
-  #ldap_other_bind             => "{'cn=admin,dc=rabbitmq,dc=dev', 'secret'}",
+  ldap_user_dn_pattern        => 'CN=${username},OU=services,DC=rabbitmq,DC=dev',
+  ldap_other_bind             => "{'CN=rabbitbind,OU=services,DC=rabbitmq,DC=dev', 'rabbitbind'}",
+  #ldap_other_bind             => "{'CN=admin,DC=rabbitmq,DC=dev', 'secret'}",
   #ldap_other_bind             => "{'rabbitbind', 'rabbitbind'}",
   ldap_log                    => true,
   config_variables            => {
@@ -49,16 +49,16 @@ class { 'rabbitmq':
     log_levels                => "[{connection, debug}, {default, debug}, {channel, debug}, {queue, debug}, {mirroring, debug}, {federation, debug}, {upgrade, debug}]"
   },
   ldap_config_variables       => {
-    #dn_lookup_base            => "'ou=services,dc=rabbitmq,dc=dev'",
-    #dn_lookup_attribute       => "'cn'",
-    #group_lookup_base         => "'ou=groups,dc=rabbitmq,dc=dev'",
+    #dn_lookup_base            => "'OU=services,DC=rabbitmq,DC=dev'",
+    #dn_lookup_attribute       => "'CN'",
+    #group_lookup_base         => "'OU=groups,DC=rabbitmq,DC=dev'",
     tag_queries               => "[{administrator, {constant, true}}, {management, {constant, true}}]",
     vhost_access_query        => "{constant, true}",
-    #vhost_access_query        => "{in_group, 'cn=services,ou=groups,dc=rabbitmq,dc=dev'}",
+    #vhost_access_query        => "{in_group, 'CN=services,OU=groups,DC=rabbitmq,DC=dev'}",
     resource_access_query     => "{constant, true}",
-    #resource_access_query     => "{in_group, 'cn=services,ou=groups,dc=rabbitmq,dc=dev'}",
+    #resource_access_query     => "{in_group, 'CN=services,OU=groups,DC=rabbitmq,DC=dev'}",
     topic_access_query        => "{constant, true}"
-    #topic_access_query        => "{in_group, 'cn=services,ou=groups,dc=rabbitmq,dc=dev'}",
+    #topic_access_query        => "{in_group, 'CN=services,OU=groups,DC=rabbitmq,DC=dev'}",
   }
 }
 
