@@ -15,17 +15,17 @@ objectClass: organizationalunit
 
 dn: cn=administrators,ou=groups,dc=rabbitmq,dc=dev
 cn: administrators
-description: Services Group
+description: Administrators Group
 objectClass: top
 objectClass: groupOfNames
-member: cn=rabbitadmin,ou=services,dc=rabbitmq,dc=dev
+member: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
 
 dn: cn=developers,ou=groups,dc=rabbitmq,dc=dev
 cn: developers
-description: Services Group
+description: Developers Group
 objectClass: top
 objectClass: groupOfNames
-member: cn=rabbitdev,ou=services,dc=rabbitmq,dc=dev
+member: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
 
 dn: cn=services,ou=groups,dc=rabbitmq,dc=dev
 cn: services
@@ -35,7 +35,7 @@ objectClass: groupOfNames
 member: cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
-dn: cn=rabbitadmin,ou=services,dc=rabbitmq,dc=dev
+dn: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
 cn: rabbitadmin
 sn: rabbitadmin
 description: RabbitMQ Admin User
@@ -45,7 +45,7 @@ objectClass: person
 objectClass: organizationalPerson
 objectClass: simpleSecurityObject
 
-dn: cn=rabbitdev,ou=services,dc=rabbitmq,dc=dev
+dn: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
 cn: rabbitdev
 sn: rabbitdev
 description: RabbitMQ Dev User
