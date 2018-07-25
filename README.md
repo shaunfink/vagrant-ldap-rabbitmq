@@ -3,7 +3,7 @@ A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing and de
 
 # To Do:
 - I need to figure out hot to get the puppet librarian plugin working beforee this becomes applicable. For the time being, i'm just using provisioning scripts
-- Configure LDAP with RabbitMQ
+- LDAP integration seems to work, but there are issues with the bind user not being able to log in. This means that my mtls config isn't working just yet.
 
 # Setup (eventually, once I can get the Puppet Librarian working)
 - Install virtualbox
