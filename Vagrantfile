@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 15672, host: 15672
 
   config.vm.synced_folder "./ldap/", "/vagrant_data/ldap/"
-  config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
+  #config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
   config.vm.synced_folder "./certs/", "/vagrant_data/certs/"
 
   config.vm.provider :virtualbox do |vb|
@@ -32,4 +32,5 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "./puppet/manifests/"
     puppet.manifest_file = "default.pp"
   end
+  config.vm.provision "shell", path: "./scripts/post-install.sh"
 end
