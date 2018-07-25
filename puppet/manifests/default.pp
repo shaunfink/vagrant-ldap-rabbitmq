@@ -39,8 +39,8 @@ class { 'rabbitmq':
   ldap_server                 => 'rabbitmq.dev',
   ldap_port                   => 389,
   ldap_user_dn_pattern        => 'cn=${username},ou=services,dc=rabbitmq,dc=dev',
-  #ldap_other_bind             => "{'cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev', 'rabbitbind'}",
-  ldap_other_bind             => "{'cn=admin,dc=rabbitmq,dc=dev', 'secret'}",
+  ldap_other_bind             => "{'cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev', 'rabbitbind'}",
+  #ldap_other_bind             => "{'cn=admin,dc=rabbitmq,dc=dev', 'secret'}",
   #ldap_other_bind             => "{'rabbitbind', 'rabbitbind'}",
   ldap_log                    => true,
   config_variables            => {
@@ -49,7 +49,6 @@ class { 'rabbitmq':
     log_levels                => "[{connection, debug}, {default, debug}, {channel, debug}, {queue, debug}, {mirroring, debug}, {federation, debug}, {upgrade, debug}]"
   },
   ldap_config_variables       => {
-    log                       => 'network_unsafe',
     #dn_lookup_base            => "'ou=services,dc=rabbitmq,dc=dev'",
     #dn_lookup_attribute       => "'cn'",
     #group_lookup_base         => "'ou=groups,dc=rabbitmq,dc=dev'",
@@ -80,30 +79,30 @@ rabbitmq_user { 'rabbitadmin':
  password => 'rabbitadminlocal',
 }
 
-rabbitmq_user { 'rabbitbind':
- ensure   => 'present',
- admin    => true,
- password => 'rabbitbindlocal',
-}
+# rabbitmq_user { 'rabbitbind':
+#  ensure   => 'present',
+#  admin    => true,
+#  password => 'rabbitbindlocal',
+# }
 
-rabbitmq_user { 'rabbitdev':
- ensure   => 'present',
- admin    => true,
- password => 'rabbitdevlocal',
-}
+# rabbitmq_user { 'rabbitdev':
+#  ensure   => 'present',
+#  admin    => true,
+#  password => 'rabbitdevlocal',
+# }
 
-rabbitmq_user { 'rabbitdevcode':
- ensure   => 'present',
- admin    => true,
- password => 'rabbitdevcodelocal',
-}
+# rabbitmq_user { 'rabbitdevcode':
+#  ensure   => 'present',
+#  admin    => true,
+#  password => 'rabbitdevcodelocal',
+# }
 
 # Assign permissions to users
-rabbitmq_user_permissions { 'rabbitadmin@/':
-  configure_permission => '.*',
-  read_permission      => '.*',
-  write_permission     => '.*',
-}
+# rabbitmq_user_permissions { 'rabbitadmin@/':
+#   configure_permission => '.*',
+#   read_permission      => '.*',
+#   write_permission     => '.*',
+# }
 
 # rabbitmq_user_permissions { 'rabbitadmin@devvhost':
 #   configure_permission => '.*',
@@ -111,14 +110,14 @@ rabbitmq_user_permissions { 'rabbitadmin@/':
 #   write_permission     => '.*',
 # }
 
-rabbitmq_user_permissions { 'rabbitdev@devvhost':
-  configure_permission => '.*',
-  read_permission      => '.*',
-  write_permission     => '.*',
-}
+# rabbitmq_user_permissions { 'rabbitdev@devvhost':
+#   configure_permission => '.*',
+#   read_permission      => '.*',
+#   write_permission     => '.*',
+# }
 
-rabbitmq_user_permissions { 'rabbitdevcode@devvhost':
-  configure_permission => '.*',
-  read_permission      => '.*',
-  write_permission     => '.*',
-}
+# rabbitmq_user_permissions { 'rabbitdevcode@devvhost':
+#   configure_permission => '.*',
+#   read_permission      => '.*',
+#   write_permission     => '.*',
+# }
