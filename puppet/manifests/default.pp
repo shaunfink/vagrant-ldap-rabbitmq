@@ -1,5 +1,5 @@
 # Configure apt repo's
-# class ::repos (
+# class repos (
 #   String $key_id          = '418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB',
 #   String $key_source      = 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc',
 #   String $location        = 'https://dl.bintray.com/rabbitmq/debian',
