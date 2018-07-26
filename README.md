@@ -21,3 +21,4 @@ A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing and de
 - https://forge.puppet.com/puppet/archive
 - https://forge.puppet.com/puppetlabs/stdlib
 - https://forge.puppet.com/puppetlabs/apt
+- https://forge.puppet.com/garethr/erlang
