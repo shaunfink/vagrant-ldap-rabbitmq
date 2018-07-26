@@ -35,6 +35,34 @@ objectClass: groupOfNames
 member: cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
+dn: cn=rabbitconfig,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbitconfig
+description: RabbitMQ Config Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
+dn: cn=rabbitwrite,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbitwrite
+description: RabbitMQ Write Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
+dn: cn=rabbitread,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbitread
+description: RabbitMQ Read Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
+dn: cn=rabbitvhost,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbitvhost
+description: RabbitMQ VHost Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
 dn: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
 cn: rabbitadmin
 sn: rabbitadmin
