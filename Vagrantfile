@@ -4,7 +4,6 @@
 Vagrant.configure("2") do |config|
   # Specify which box to use
   config.vm.box = "ubuntu/xenial64"
-  #config.vm.box = "ubuntu/bionic64"
 
   # Some VM configs
   config.vm.hostname = "rabbitmq.dev"
@@ -39,7 +38,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "./scripts/pre-install.sh"
 
   # Provision puppet modules using a script
-  #config.vm.provision "shell", path: "./scripts/provision-puppet-modules.sh"
+  config.vm.provision "shell", path: "./scripts/provision-puppet-modules.sh"
 
   # Set up our environment using Puppet
   config.vm.provision :puppet do |puppet|
