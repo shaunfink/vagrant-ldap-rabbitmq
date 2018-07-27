@@ -34,9 +34,6 @@ Vagrant.configure("2") do |config|
   # I'm having issues getting it to work. Will continue with this at a later stage.
   #config.librarian_puppet.puppetfile_dir = "./puppet/"
 
-  # Run pre-install script
-  #config.vm.provision "shell", path: "./scripts/pre-install.sh"
-
   # Provision puppet modules using a script
   config.vm.provision "shell", path: "./scripts/provision-puppet-modules.sh"
 
