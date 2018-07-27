@@ -35,13 +35,6 @@ objectClass: groupOfNames
 member: cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
-dn: cn=rabbitconfig,ou=groups,dc=rabbitmq,dc=dev
-cn: rabbitconfig
-description: RabbitMQ Config Group
-objectClass: top
-objectClass: groupOfNames
-member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
-
 dn: cn=rabbitwrite,ou=groups,dc=rabbitmq,dc=dev
 cn: rabbitwrite
 description: RabbitMQ Write Group
@@ -56,9 +49,30 @@ objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
+dn: cn=rabbitconfig,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbitconfig
+description: RabbitMQ Config Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
+dn: cn=rabbitresource,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbitresource
+description: RabbitMQ Resource Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
 dn: cn=rabbitvhost,ou=groups,dc=rabbitmq,dc=dev
 cn: rabbitvhost
 description: RabbitMQ VHost Group
+objectClass: top
+objectClass: groupOfNames
+member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+
+dn: cn=rabbittopic,ou=groups,dc=rabbitmq,dc=dev
+cn: rabbittopic
+description: RabbitMQ Topic Group
 objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
