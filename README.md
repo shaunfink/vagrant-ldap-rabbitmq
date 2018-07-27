@@ -1,31 +1,25 @@
 # Description
-A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing and dev work.
+A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing and dev work, and work on configs for RabbitMQ relatively easily.
 
-# To Do:
-- I need to figure out hot to get the puppet librarian plugin working beforee this becomes applicable. For the time being, i'm just using provisioning scripts
-- LDAP integration seems to work, but there are issues with the bind user not being able to log in. This means that my mtls config isn't working just yet.
+I've been using a python client to test my configs, stored in another git repo
+- [Python RabbitMQ Testing Client](https://github.com/shaunfink/python-rabbitmq-client)
 
-# Pre-Use actions:
-- Install virtualbox
-- Install vagrant
+# Usage:
+## Preperation:
+- Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- Install [Vagrant](https://www.vagrantup.com/)
 
-# To use:
-- Clone git repository using git clone.
-- cd to cloned git directory and run vagrant up
+## To use:
+- Clone this Git Repo
+- cd to cloned repo and run vagrant up
+- VM can be accessed using vagrant ssh
+- RabbitMQ admin console can be accessed here: http://127.0.0.1:15672, Credentials are rabbitadmin/rabbitadmin
 
-# Puppet Librarianstuff to think about:
-- sudo gem install puppet --install-dir /Users/shaun/.vagrant.d/gems/2.4.4/
-- sudo gem install librarian-puppet
-- sudo gem install vagrant-puppet-install
-- sudo gem install vagrant-librarian-puppet
-- vagrant plugin install vagrant-librarian-puppet
-- vagrant plugin install vagrant-puppet-install
-
-# I am using these Puppet Modules:
+# Puppet Modules i'm using:
 - https://forge.puppet.com/camptocamp/openldap
 - https://forge.puppet.com/puppet/rabbitmq
 - https://forge.puppet.com/puppetlabs/stdlib
 - https://forge.puppet.com/puppetlabs/apt
 
-# I might use these Puppet Modules:
-- https://forge.puppet.com/garethr/erlang
+# To Do:
+- I need to figure out how to get the Puppet librarian plugin working with vagrant, as this will make life a wee bit easier.
