@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
   # Map some folders to the vagrant image
   config.vm.synced_folder "./ldap/", "/vagrant_data/ldap/"
   config.vm.synced_folder "./certs/", "/vagrant_data/certs/"
-  #config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
+  config.vm.synced_folder "./scripts/", "/vagrant_data/scripts/"
 
   # Set up some usedul stuff for our image
   config.vm.provider :virtualbox do |vb|
