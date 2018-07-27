@@ -1,18 +1,17 @@
+# Set the staging order
+Apt::Source['rabbitmq-repo'] -> Class['apt::update'] -> Class['openldap::server'] -> Class['rabbitmq']
 
 # Add the apt class
 class { 'apt': }
-
-# Add sources first
-Apt::Source<| |> -> Exec['apt_update'] -> Package<|
 
 # Add the official RabbitMQ Repository
 $codename = downcase($facts['os']['distro']['codename'])
 apt::source { 'rabbitmq-repo':
   location    => 'https://dl.bintray.com/rabbitmq/debian',
   repos       => '$codename main erlang',
-  key      => {
-    id      => '0A9AF2115F4687BD29803A206B73A36E6026DFCA',
-    source  => 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc'
+  key         => {
+    id        => '0A9AF2115F4687BD29803A206B73A36E6026DFCA',
+    source    => 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc'
   }
 }
 
@@ -23,7 +22,7 @@ class { 'openldap::server': }
 openldap::server::database { 'dc=rabbitmq,dc=dev':
   directory => '/var/lib/ldap',
   rootdn    => 'cn=admin,dc=rabbitmq,dc=dev',
-  rootpw    => 'secret',
+  rootpw    => 'secret'
 }
 
 # Set up some global OpenLdap configs
@@ -91,6 +90,3 @@ rabbitmq_user { 'rabbitadmin':
  admin    => true,
  password => 'rabbitadminlocal',
 }
-
-# Set the staging order
-Class['apt'] => Class['openldap::server'] => Class['rabbitmq']
