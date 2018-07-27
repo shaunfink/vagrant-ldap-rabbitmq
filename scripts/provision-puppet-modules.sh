@@ -9,8 +9,8 @@
 # puppet module install camptocamp-openldap
 # puppet module install garethr-erlang
 
-puppetModules=(puppetlabs-stdlib puppetlabs-apt puppet-rabbitmq camptocamp-openldap garethr-erlang)
+puppetModules=('puppetlabs-stdlib' 'puppetlabs-apt' 'puppet-rabbitmq' 'camptocamp-openldap' 'garethr-erlang')
 
-for m in puppetModules; do
+for m in $puppetModules; do
     puppet module install $m
 done
