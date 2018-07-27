@@ -1,18 +1,31 @@
+#############################
+### Set some default OU's ###
+#############################
+
+# OU: People
 dn: ou=people,dc=rabbitmq,dc=dev
 ou: people
 objectClass: top
 objectClass: organizationalunit
 
+# OU: Groups
 dn: ou=groups,dc=rabbitmq,dc=dev
 ou: groups
 objectClass: top
 objectClass: organizationalunit
 
+# OU: Services
 dn: ou=services,dc=rabbitmq,dc=dev
 ou: services
 objectClass: top
 objectClass: organizationalunit
 
+
+##################################
+### Configure some User Groups ###
+##################################
+
+# GROUP: Administrators
 dn: cn=administrators,ou=groups,dc=rabbitmq,dc=dev
 cn: administrators
 description: Administrators Group
@@ -20,6 +33,7 @@ objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
 
+# GROUP: Developers
 dn: cn=developers,ou=groups,dc=rabbitmq,dc=dev
 cn: developers
 description: Developers Group
@@ -27,6 +41,7 @@ objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
 
+# GROUP: Services
 dn: cn=services,ou=groups,dc=rabbitmq,dc=dev
 cn: services
 description: Services Group
@@ -35,6 +50,12 @@ objectClass: groupOfNames
 member: cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
+
+###############################################
+### Configure some Groups for Authorisation ###
+###############################################
+
+# GROUP: Write to RabbitMQ
 dn: cn=rabbitwrite,ou=groups,dc=rabbitmq,dc=dev
 cn: rabbitwrite
 description: RabbitMQ Write Group
@@ -42,6 +63,7 @@ objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
+# GROUP: Read from RabbitMQ
 dn: cn=rabbitread,ou=groups,dc=rabbitmq,dc=dev
 cn: rabbitread
 description: RabbitMQ Read Group
@@ -49,6 +71,7 @@ objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
+# GROUP: Configure RabbitMQ
 dn: cn=rabbitconfig,ou=groups,dc=rabbitmq,dc=dev
 cn: rabbitconfig
 description: RabbitMQ Config Group
@@ -56,27 +79,12 @@ objectClass: top
 objectClass: groupOfNames
 member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
-dn: cn=rabbitresource,ou=groups,dc=rabbitmq,dc=dev
-cn: rabbitresource
-description: RabbitMQ Resource Group
-objectClass: top
-objectClass: groupOfNames
-member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 
-dn: cn=rabbitvhost,ou=groups,dc=rabbitmq,dc=dev
-cn: rabbitvhost
-description: RabbitMQ VHost Group
-objectClass: top
-objectClass: groupOfNames
-member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
+#########################
+### Create some Users ###
+#########################
 
-dn: cn=rabbittopic,ou=groups,dc=rabbitmq,dc=dev
-cn: rabbittopic
-description: RabbitMQ Topic Group
-objectClass: top
-objectClass: groupOfNames
-member: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
-
+# USER: Rabbit Admin
 dn: cn=rabbitadmin,ou=people,dc=rabbitmq,dc=dev
 cn: rabbitadmin
 sn: rabbitadmin
@@ -87,6 +95,7 @@ objectClass: person
 objectClass: organizationalPerson
 objectClass: simpleSecurityObject
 
+# USER: Rabbit Dev
 dn: cn=rabbitdev,ou=people,dc=rabbitmq,dc=dev
 cn: rabbitdev
 sn: rabbitdev
@@ -97,6 +106,7 @@ objectClass: person
 objectClass: organizationalPerson
 objectClass: simpleSecurityObject
 
+# USER: LDAP Bind
 dn: cn=rabbitbind,ou=services,dc=rabbitmq,dc=dev
 cn: rabbitbind
 sn: rabbitbind
@@ -107,6 +117,7 @@ objectClass: person
 objectClass: organizationalPerson
 objectClass: simpleSecurityObject
 
+# USER: Rabbit mTLS User
 dn: cn=rabbitdevcode,ou=services,dc=rabbitmq,dc=dev
 cn: rabbitdevcode
 sn: rabbitdevcode
