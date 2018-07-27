@@ -1,50 +1,7 @@
-# Configure apt repo's
-# class repos (
-#   String $key_id          = '418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB',
-#   String $key_source      = 'https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc',
-#   String $location        = 'https://dl.bintray.com/rabbitmq/debian',
-#   Boolean $include_src    = false,
-# ) {
-#   $osname = downcase($facts['os']['name'])
-#   $codename = downcase($facts['os']['distro']['codename'])
-#
-#   # ordering / ensure to get the last version of repository
-#   Class['repos']
-#   -> Class['apt::update']
-#
-#   apt::key { 'rabbitmq':
-#     id      => $key_id,
-#     source  => $key_source
-#   }
-#
-#   apt::source { 'erlang':
-#     include_src => $include_src,
-#     location    => $location,
-#     repos       => '$codename erlang'
-#   }
-#
-#   apt::source { 'rabbitmq':
-#     include_src => $include_src,
-#     location    => $location,
-#     repos       => '$codename main'
-#   }
-#
-#   apt::pin { 'rabbitmq':
-#     packages => '*',
-#     priority => 100,
-#     origin   => 'dl.bintray.com',
-#   }
-# }
-
 # Install some packages
-package { 'monit':
-  ensure => installed,
-}
-
-# Install erlang
-package { 'erlang-nox':
-  ensure => installed,
-}
+Package { ensure => 'installed' }
+package { 'monit': }
+package { 'erlang-nox': }
 
 # Provision OpenLDAP
 class { 'openldap::server': }
@@ -70,25 +27,8 @@ exec { 'ldapadd':
   require => Class['openldap::server']
 }
 
-# # Install latest erlang version
-# class { 'erlang': }
-
-# package { 'erlang-base':
-#   ensure => 'latest',
-# }
-
-# # Ensure we're using the latest repo
-# class { 'rabbitmq::repo::apt':
-#   key_source => 'https://packagecloud.io/gpg.key',
-# }
-
 # Provsion RabbitMQ
 class { 'rabbitmq':
-  #require                     => Class['rabbitmq::repo::apt'],
-  #repos_ensure             => true,
-  #package_ensure           => 'latest',
-  #package_apt_pin          => '900',
-  #package_gpg_key          => 'https://packagecloud.io/gpg.key',
   delete_guest_user        => true,
   admin_enable             => true,
   management_ssl           => false,
@@ -108,25 +48,23 @@ class { 'rabbitmq':
   ldap_port                => 389,
   ldap_user_dn_pattern     => 'CN=${username},OU=services,DC=rabbitmq,DC=dev',
   ldap_other_bind          => '{"CN=rabbitbind,OU=services,DC=rabbitmq,DC=dev", "rabbitbind"}',
-  #ldap_other_bind             => "{'CN=admin,DC=rabbitmq,DC=dev', 'secret'}",
-  #ldap_other_bind             => "{'rabbitbind', 'rabbitbind'}",
   ldap_log                 => true,
   config_variables         => {
-    ssl_cert_login_from => 'common_name',
-    auth_mechanisms     => "['EXTERNAL', 'AMQPLAIN', 'PLAIN']",
-    log_levels          => '[{connection, debug}, {default, debug}, {channel, debug}, {queue, debug}, {mirroring, debug}, {federation, debug}, {upgrade, debug}]'
+    ssl_cert_login_from    => 'common_name',
+    auth_mechanisms        => "['EXTERNAL', 'AMQPLAIN', 'PLAIN']",
+    log_levels             => '[{connection, debug}, {default, debug}, {channel, debug}, {queue, debug}, {mirroring, debug}, {federation, debug}, {upgrade, debug}]'
   },
   ldap_config_variables    => {
-    #dn_lookup_base            => "'OU=services,DC=rabbitmq,DC=dev'",
-    #dn_lookup_attribute       => "'CN'",
-    #group_lookup_base         => "'OU=groups,DC=rabbitmq,DC=dev'",
-    tag_queries           => '[{administrator, {constant, true}}, {management, {constant, true}}]',
-    vhost_access_query    => '{constant, true}',
-    #vhost_access_query        => "{in_group, 'CN=services,OU=groups,DC=rabbitmq,DC=dev'}",
-    resource_access_query => '{constant, true}',
-    #resource_access_query     => "{in_group, 'CN=services,OU=groups,DC=rabbitmq,DC=dev'}",
-    topic_access_query    => '{constant, true}'
-    #topic_access_query        => "{in_group, 'CN=services,OU=groups,DC=rabbitmq,DC=dev'}",
+    dn_lookup_base         => "'OU=services,DC=rabbitmq,DC=dev'",
+    dn_lookup_attribute    => "'CN'",
+    group_lookup_base      => "'OU=groups,DC=rabbitmq,DC=dev'",
+    tag_queries            => '[{administrator, {constant, true}}, {management, {constant, true}}]',
+    #vhost_access_query     => '{constant, true}',
+    vhost_access_query     => '{in_group, "cn=rabbitvhost,ou=groups,dc=rabbitmq,dc=dev"}',
+    #resource_access_query  => '{constant, true}',
+    resource_access_query  => '{in_group, "CN=rabbitresource,OU=groups,DC=rabbitmq,DC=dev"}',
+    #topic_access_query     => '{constant, true}'
+    topic_access_query     => '{in_group, "CN=rabbitvhost,OU=groups,DC=rabbitmq,DC=dev"}',
   }
 }
 
@@ -147,41 +85,10 @@ rabbitmq_user { 'rabbitadmin':
  password => 'rabbitadminlocal',
 }
 
-# rabbitmq_user { 'rabbitbind':
-#  ensure   => 'present',
-#  admin    => true,
-#  password => 'rabbitbindlocal',
-# }
-
-# rabbitmq_user { 'rabbitdev':
-#  ensure   => 'present',
-#  admin    => true,
-#  password => 'rabbitdevlocal',
-# }
-
 # rabbitmq_user { 'rabbitdevcode':
 #  ensure   => 'present',
 #  admin    => true,
 #  password => 'rabbitdevcodelocal',
-# }
-
-# Assign permissions to users
-# rabbitmq_user_permissions { 'rabbitadmin@/':
-#   configure_permission => '.*',
-#   read_permission      => '.*',
-#   write_permission     => '.*',
-# }
-
-# rabbitmq_user_permissions { 'rabbitadmin@devvhost':
-#   configure_permission => '.*',
-#   read_permission      => '.*',
-#   write_permission     => '.*',
-# }
-
-# rabbitmq_user_permissions { 'rabbitdev@devvhost':
-#   configure_permission => '.*',
-#   read_permission      => '.*',
-#   write_permission     => '.*',
 # }
 
 # rabbitmq_user_permissions { 'rabbitdevcode@devvhost':
@@ -191,5 +98,4 @@ rabbitmq_user { 'rabbitadmin':
 # }
 
 # Set the staging order
-# Class['::repos'] -> Class['openldap::server'] -> Class['rabbitmq']
 Class['openldap::server'] -> Class['rabbitmq']
