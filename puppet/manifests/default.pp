@@ -1,8 +1,3 @@
-# Install some packages
-Package { ensure => 'installed' }
-package { 'monit': }
-package { 'erlang-nox': }
-
 # Provision OpenLDAP
 class { 'openldap::server': }
 
@@ -55,16 +50,10 @@ class { 'rabbitmq':
     log_levels             => '[{connection, debug}, {default, debug}, {channel, debug}, {queue, debug}, {mirroring, debug}, {federation, debug}, {upgrade, debug}]'
   },
   ldap_config_variables    => {
-    dn_lookup_base         => "'OU=services,DC=rabbitmq,DC=dev'",
-    dn_lookup_attribute    => "'CN'",
-    group_lookup_base      => "'OU=groups,DC=rabbitmq,DC=dev'",
-    tag_queries            => '[{administrator, {constant, true}}, {management, {constant, true}}]',
-    #vhost_access_query     => '{constant, true}',
-    vhost_access_query     => '{in_group, "cn=rabbitvhost,ou=groups,dc=rabbitmq,dc=dev"}',
-    #resource_access_query  => '{constant, true}',
-    resource_access_query  => '{in_group, "CN=rabbitresource,OU=groups,DC=rabbitmq,DC=dev"}',
-    #topic_access_query     => '{constant, true}'
-    topic_access_query     => '{in_group, "CN=rabbitvhost,OU=groups,DC=rabbitmq,DC=dev"}',
+    tag_queries            => '[{administrator, {constant, false}}, {monitoring, {constant, false}}, {policymaker, {constant, false}}, {management, {constant, true}}]',
+    vhost_access_query     => '{constant, true}',
+    resource_access_query  => '{for, [{permission, configure, {in_group, "CN=rabbitconfig,OU=groups,DC=rabbitmq,DC=dev"}}, {permission, write, {for, [{resource, queue, {in_group, "CN=rabbitwrite,OU=groups,DC=rabbitmq,DC=dev"}}, {resource, exchange, {in_group, "CN=rabbitwrite,OU=groups,DC=rabbitmq,DC=dev"}}]}}, {permission, read, {for, [{resource, exchange, {in_group, "CN=rabbitread,OU=groups,DC=rabbitmq,DC=dev"}}, {resource, queue, {in_group, "CN=rabbitread,OU=groups,DC=rabbitmq,DC=dev"}}]}}]}',
+    topic_access_query     => '{for, [{permission, write, {in_group, "CN=rabbitwrite,OU=groups,DC=rabbitmq,DC=dev"}}, {permission, read, {in_group, "CN=rabbitread,OU=groups,DC=rabbitmq,DC=dev"}}]}'
   }
 }
 
@@ -84,18 +73,6 @@ rabbitmq_user { 'rabbitadmin':
  admin    => true,
  password => 'rabbitadminlocal',
 }
-
-# rabbitmq_user { 'rabbitdevcode':
-#  ensure   => 'present',
-#  admin    => true,
-#  password => 'rabbitdevcodelocal',
-# }
-
-# rabbitmq_user_permissions { 'rabbitdevcode@devvhost':
-#   configure_permission => '.*',
-#   read_permission      => '.*',
-#   write_permission     => '.*',
-# }
 
 # Set the staging order
 Class['openldap::server'] -> Class['rabbitmq']
