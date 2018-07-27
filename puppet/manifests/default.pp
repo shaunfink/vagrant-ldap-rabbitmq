@@ -107,7 +107,7 @@ class { 'rabbitmq':
   ldap_server              => 'rabbitmq.dev',
   ldap_port                => 389,
   ldap_user_dn_pattern     => 'CN=${username},OU=services,DC=rabbitmq,DC=dev',
-  ldap_other_bind          => "{'CN=rabbitbind,OU=services,DC=rabbitmq,DC=dev', 'rabbitbind'}",
+  ldap_other_bind          => '{"CN=rabbitbind,OU=services,DC=rabbitmq,DC=dev", "rabbitbind"}',
   #ldap_other_bind             => "{'CN=admin,DC=rabbitmq,DC=dev', 'secret'}",
   #ldap_other_bind             => "{'rabbitbind', 'rabbitbind'}",
   ldap_log                 => true,
