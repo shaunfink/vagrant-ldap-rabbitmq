@@ -1,7 +1,7 @@
 # Description
 A vagrant build for RabbitMQ and LDAP, so that I can do some mTLS testing and dev work, and work on configs for RabbitMQ relatively easily.
 
-I've been using a python client to test my configs, stored in another git repo
+I've been using a python client to test my configs, stored in another git repo:
 - [Python RabbitMQ Testing Client](https://github.com/shaunfink/python-rabbitmq-client)
 
 # Usage:
