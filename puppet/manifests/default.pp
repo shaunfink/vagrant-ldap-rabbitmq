@@ -1,5 +1,5 @@
 # Set the staging order
-Apt::Source['rabbitmq-repo'] -> Class['apt::update'] -> Class['openldap::server'] -> Class['rabbitmq']
+Apt::Source['rabbitmq-repo'] -> Class['apt::update'] -> Class['openldap::server'] -> Exec['ldapadd'] -> Class['rabbitmq']
 
 # Add the apt class
 class { 'apt': }
@@ -20,6 +20,7 @@ class { 'openldap::server': }
 
 # Configure the default OpenLdap Database
 openldap::server::database { 'dc=rabbitmq,dc=dev':
+  ensure    => present,
   directory => '/var/lib/ldap',
   rootdn    => 'cn=admin,dc=rabbitmq,dc=dev',
   rootpw    => 'secret'
